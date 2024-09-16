@@ -5,7 +5,9 @@ case "$1" in
     clean)
         # 清空目录
         echo "clearing..."
-        rm main 2>/dev/null
+        # rm main 2>/dev/null
+        rm -rf ./output/bin
+        rm -rf ./output/lib
         echo "clearing done!"
         ;;
     *)
@@ -14,4 +16,5 @@ case "$1" in
         ;;
 esac
 
-echo "./main --gtest_color=yes" --gtest_filter=* 
+# cp ./utils/include/* ./output/include/testinclude/
+

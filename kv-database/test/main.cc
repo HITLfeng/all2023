@@ -1,6 +1,4 @@
-// gtest_sum.cpp
-#include <iostream>
-#include <gtest/gtest.h>
+#include "test_common.h"
 
 class ClientTest : public ::testing::Test
 {
