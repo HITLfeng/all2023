@@ -17,14 +17,31 @@ typedef enum OperatorCode
     OP_BUTT,
 } OperatorCode;
 
-typedef struct MsgBuf
+
+typedef struct MsgBufRequestHead
 {
     OperatorCode opCode;
-    uint32_t bufLen;
-    char msg[BUF_SIZE];
-} MsgBufT;
+    uint32_t requestBufLen;
+} MsgBufRequestHeadT;
+typedef struct MsgBufResponseHead
+{
+    uint32_t status; // 服务端返回值
+    uint32_t responseBufLen;
+} MsgBufResponseHeadT;
 
+typedef struct MsgBufRequest
+{
+    OperatorCode opCode;
+    uint32_t requestBufLen;
+    char requestMsg[BUF_SIZE];
+} MsgBufRequestT;
 
+typedef struct MsgBufResponse
+{
+    uint32_t status; // 服务端返回值
+    uint32_t responseBufLen;
+    char requestMsg[BUF_SIZE];
+} MsgBufResponseT;
 
 #ifdef __cplusplus
 }

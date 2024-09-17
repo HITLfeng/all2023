@@ -35,9 +35,18 @@ extern "C" {
  */
 typedef uint32_t Status;
 
+// common 错误码
 #define GMERR_OK 0
-#define GMERR_MEMORY_ALLOC_FAILED 1
-#define GMERR_SOCKET_FAILED 2
+#define GMERR_MEMORY_ALLOC_FAILED 1000001
+#define GMERR_SOCKET_FAILED 1000002
+
+// 测试错误码
+#define GMERR_ADD_TEST_INVAILD_OPTION 1001003
+
+
+// RUNTIME 模块错误码
+#define GMERR_RUNTIME_UNKNOWN_OPCODE 1002000
+#define GMERR_RUNTIME_INVAILD_BUFLENGTH 1002001
 
 /*
  * 断言非空函数

@@ -3,24 +3,30 @@
 void *client_handler(void *arg)
 {
     int clnt_sock = *((int *)arg);
-    char message[BUF_SIZE];
+    // 用户有效报文长度不超过1024
+    char message[sizeof(MsgBufRequestT)];
     int str_len;
-
+    normal_info("thread id: %d is deal with client %d\n", pthread_self(), clnt_sock);
     // 接收客户端发送的消息
-    str_len = read(clnt_sock, message, BUF_SIZE - 1);
+    str_len = read(clnt_sock, message, sizeof(MsgBufRequestT) - 1);
     if (str_len == 0)
     {
+        normal_info("thread id: %d msg -- client %d closed connection\n", pthread_self(), clnt_sock);
         // 客户端关闭连接
         close(clnt_sock);
         return NULL;
     }
     message[str_len] = 0;
-    // TODO: 解析一下报文
+
     printf("收到客户端的消息：%s", message);
+
+    // messgae即时输入也是输出哦
+    RTProcessMain(message, str_len);
+
 
     // 发送消息给客户端
     printf("请输入要发送的消息：");
-    fgets(message, BUF_SIZE, stdin);
+    fgets(message, sizeof(MsgBufRequestT), stdin);
     str_len = strlen(message);
     write(clnt_sock, message, str_len);
 
@@ -72,6 +78,7 @@ Status MainWorkerStart()
         }
 
         // 创建新线程处理客户端请求
+        normal_info("MainWorkerStart, new client connected, client ip: %s, port: %d", inet_ntoa(clnt_addr.sin_addr), ntohs(clnt_addr.sin_port));
         pthread_t t_id;
         pthread_create(&t_id, NULL, client_handler, (void *)&clnt_sock);
         pthread_detach(t_id); // 分离线程，使其结束后自动回收资源

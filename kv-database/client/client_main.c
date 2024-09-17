@@ -34,17 +34,17 @@ int main() {
     }
 
     while (1) {
-        // 接收服务器发送的消息
-        str_len = read(sock, message, BUF_SIZE - 1);
-        message[str_len] = 0;
-        printf("收到服务器的消息：%s", message);
-
         printf("请输入要发送的消息：");
         fgets(message, BUF_SIZE, stdin);
         str_len = strlen(message);
 
         // 发送消息给服务器
         write(sock, message, str_len);
+        // 接收服务器发送的消息
+        str_len = read(sock, message, BUF_SIZE - 1);
+        message[str_len] = 0;
+        printf("收到服务器的消息：%s", message);
+
     }
 
     // 关闭socket

@@ -4,6 +4,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 # 指定项目名称 （版本 备注 语言...）
 project(kv-database)
 
+# set(CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # server的路径
 set(SERVER_PATH ${CMAKE_CURRENT_SOURCE_DIR}/server)
 # client生成的路径
