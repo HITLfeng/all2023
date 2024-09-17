@@ -4,12 +4,33 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <pthread.h>
+
 
 #include "../interface/include/outfunction.h"
 // #include "outfunction.h"
 
 #include "../common/include/common.h"
 // #include "common.h"
+
+void *srvStartDetach(void *arg)
+{
+    system("kvserver");
+}
+
+CliStatus KVCSrvStart(void)
+{
+    pthread_t thread;
+    if (pthread_create(&thread, NULL, srvStartDetach, NULL) != 0) {
+        error_info("server start thread create error.");
+        return GMERR_CLIENT_START_SERVER_FAILED;
+    }
+    pthread_detach(thread);
+}
+CliStatus KVCSrvStop(void)
+{
+    system("killall kvserver");
+}
 
 CliStatus KVCConnect(KVConnectT *conn)
 {
@@ -74,6 +95,7 @@ CliStatus KVCRecv(KVConnectT *conn, MsgBufResponseT *msgBuf)
         error_info("client recv msgBuf error.");
         return GMERR_CLIENT_RECV_FAILED;
     }
+    memcpy(msgBuf, &message, sizeof(MsgBufResponseT));
     
     return GMERR_OK;
 }

@@ -16,19 +16,22 @@ void *client_handler(void *arg)
         close(clnt_sock);
         return NULL;
     }
-    message[str_len] = 0;
 
-    printf("收到客户端的消息：%s", message);
+    while (true)
+    {
+        message[str_len] = 0;
 
-    // messgae即时输入也是输出哦
-    RTProcessMain(message, str_len);
+        // printf("收到客户端的消息：%s", message);
 
+        // messgae即时输入也是输出哦
+        RTProcessMain(message, str_len);
 
-    // 发送消息给客户端
-    printf("请输入要发送的消息：");
-    fgets(message, sizeof(MsgBufRequestT), stdin);
-    str_len = strlen(message);
-    write(clnt_sock, message, str_len);
+        // 发送消息给客户端
+        // printf("请输入要发送的消息：");
+        // fgets(message, sizeof(MsgBufRequestT), stdin);
+        // str_len = strlen(message);
+        write(clnt_sock, message, str_len);
+    }
 
     return NULL;
 }

@@ -1,5 +1,6 @@
 #include "main_worker.h"
 #include "seri_utils.h"
+#include "outfunction.h"
 
 Status RtHandleAddTest(char *usrMsg, char *resultBuf, uint32_t bufLen)
 {
@@ -7,19 +8,19 @@ Status RtHandleAddTest(char *usrMsg, char *resultBuf, uint32_t bufLen)
     uint8_t **bufCursor = (uint8_t **)&usrMsg;
     int32_t argL = DeseriIntM(bufCursor);
     int32_t argR = DeseriIntM(bufCursor);
-    char argOp = DeseriCharM(bufCursor);
+    CalcOptionT argOp = DeseriCharM(bufCursor);
     switch (argOp)
     {
-    case '+':
+    case CALC_ADD:
         SeriInt((uint8_t **)&resultBuf, argL + argR);
         break;
-    case '-':
+    case CALC_SUB:
         SeriInt((uint8_t **)&resultBuf, argL - argR);
         break;
-    case '*':
+    case CALC_MUL:
         SeriInt((uint8_t **)&resultBuf, argL * argR);
         break;
-    case '/':
+    case CALC_DIV:
         if (argR == 0)
         {
             error_info("add test invaild option, option is \\ and argR is 0.");

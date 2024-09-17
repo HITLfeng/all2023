@@ -8,7 +8,7 @@ static uint8_t *GetUsrMsgBufPostion(char *message)
 
 void RTSetRequestHead(char *msgRequest, Status status, const char *responseBuf, uint32_t responseBuflen)
 {
-    memset(msgRequest, sizeof(MsgBufRequestT), 0);
+    memset(msgRequest, 0, sizeof(MsgBufRequestT));
     MsgBufResponseHeadT *msgResponseHead = (MsgBufResponseHeadT *)msgRequest;
     msgResponseHead->status = status;
     if (status != GMERR_OK || responseBuf == NULL)

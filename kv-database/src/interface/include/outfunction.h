@@ -16,6 +16,9 @@ extern "C"
 #endif
 
 
+// 启动服务
+CliStatus KVCSrvStart(void);
+CliStatus KVCSrvStop(void);
 
 // 建联 断联函数
 

@@ -33,6 +33,8 @@ extern "C" {
 /*
  * error no
  */
+#define true 1
+#define false 0
 typedef uint32_t Status;
 
 // common 错误码
@@ -53,6 +55,8 @@ typedef uint32_t Status;
 #define GMERR_CLIENT_CONNECT_FAILED 2001002
 #define GMERR_CLIENT_SEND_FAILED 2001003
 #define GMERR_CLIENT_RECV_FAILED 2001004
+#define GMERR_CLIENT_START_SERVER_FAILED 2001005
+#define GMERR_CLIENT_STOP_SERVER_FAILED 2001006
 
 /*
  * 断言非空函数

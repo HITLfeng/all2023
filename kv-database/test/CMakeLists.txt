@@ -23,8 +23,12 @@ file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
 
 # 指定可执行程序的名称及依赖
 
+# 之后要添加新的测试文件目录请加在这！！！
+# 添加源文件目录
+file(GLOB_RECURSE SOURCES "sdv/00_calc_test/*.cc")
 
-add_executable(main main.cc ${SRC_LIST})
 
-target_link_libraries(main gtest pthread)
+add_executable(kv-test main.cc ${SRC_LIST} ${SOURCES})
+
+target_link_libraries(kv-test gtest pthread kvclient)
 # 执行 cmake + 路径 （CMakeLists.txt 文件所在路径）
