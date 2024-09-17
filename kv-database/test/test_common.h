@@ -1,6 +1,6 @@
 #include <iostream>
 #include <gtest/gtest.h>
-#include "vector_util.h"
+// #include "vector_util.h"
 
 #define DEBUG_FLAG 1
 

@@ -7,15 +7,16 @@ project(kv-database)
 # set(CMAKE_CXX_STANDARD 11)
 # set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# server的路径
-set(SERVER_PATH ${CMAKE_CURRENT_SOURCE_DIR}/server)
-# client生成的路径
-set(CLIENT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/client)
+# src的路径
+set(SERVER_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # 生成的动态库目录
 set(LIB_SO_PATH ${CMAKE_CURRENT_SOURCE_DIR}/output/lib)
 # 生成的bin目录
 set(BIN_PATH ${CMAKE_CURRENT_SOURCE_DIR}/output/bin)
 
-add_subdirectory(server)
-add_subdirectory(client)
+add_subdirectory(src)
+add_subdirectory(test)
+
+# 生成动态库
+# add_library(kvdatabase SHARED)
