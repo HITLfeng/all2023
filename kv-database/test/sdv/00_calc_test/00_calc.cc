@@ -56,12 +56,12 @@ TEST_F(KVCalcTest, ConnectTryManyTest)
     EXPECT_EQ(220, result.calcAns);
 
     result = {0};
-    ASSERT_EQ(GMERR_OK, KVCCalcTwoNumber(conn, 11, 20, CALC_SUB, (UsrResultBaseT *)&result));
+    ASSERT_EQ(GMERR_OK, KVCCalcTwoNumber(conn, 12, 20, CALC_SUB, (UsrResultBaseT *)&result));
     EXPECT_EQ(GMERR_OK, result.ret);
-    EXPECT_EQ(-9, result.calcAns);
+    EXPECT_EQ(-8, result.calcAns);
 
     result = {0};
-    ASSERT_EQ(GMERR_OK, KVCCalcTwoNumber(conn, 9, 3, CALC_SUB, (UsrResultBaseT *)&result));
+    ASSERT_EQ(GMERR_OK, KVCCalcTwoNumber(conn, 9, 3, CALC_DIV, (UsrResultBaseT *)&result));
     EXPECT_EQ(GMERR_OK, result.ret);
     EXPECT_EQ(3, result.calcAns);
 

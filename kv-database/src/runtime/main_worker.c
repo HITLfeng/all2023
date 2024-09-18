@@ -7,19 +7,20 @@ void *client_handler(void *arg)
     char message[sizeof(MsgBufRequestT)];
     int str_len;
     normal_info("thread id: %d is deal with client %d\n", pthread_self(), clnt_sock);
-    // 接收客户端发送的消息
-    str_len = read(clnt_sock, message, sizeof(MsgBufRequestT) - 1);
-    if (str_len == 0)
-    {
-        normal_info("thread id: %d msg -- client %d closed connection\n", pthread_self(), clnt_sock);
-        // 客户端关闭连接
-        close(clnt_sock);
-        return NULL;
-    }
 
     while (true)
     {
-        message[str_len] = 0;
+        memset(message, 0, sizeof(MsgBufRequestT));
+        // 接收客户端发送的消息
+        str_len = read(clnt_sock, message, sizeof(MsgBufRequestT));
+        if (str_len == 0)
+        {
+            normal_info("thread id: %d msg -- client %d closed connection\n", pthread_self(), clnt_sock);
+            // 客户端关闭连接
+            close(clnt_sock);
+            return NULL;
+        }
+        // message[str_len] = 0;
 
         // printf("收到客户端的消息：%s", message);
 
@@ -30,7 +31,14 @@ void *client_handler(void *arg)
         // printf("请输入要发送的消息：");
         // fgets(message, sizeof(MsgBufRequestT), stdin);
         // str_len = strlen(message);
-        write(clnt_sock, message, str_len);
+        int sendRet = write(clnt_sock, message, sizeof(MsgBufResponseT));
+        if (sendRet == -1)
+        {
+            error_info("thread id: %d msg -- send msg to client %d failed\n", pthread_self(), clnt_sock);
+            // 客户端关闭连接
+            close(clnt_sock);
+            return NULL;
+        }
     }
 
     return NULL;

@@ -6,7 +6,6 @@
 #include <sys/socket.h>
 #include <pthread.h>
 
-
 #include "../interface/include/outfunction.h"
 // #include "outfunction.h"
 
@@ -21,7 +20,8 @@ void *srvStartDetach(void *arg)
 CliStatus KVCSrvStart(void)
 {
     pthread_t thread;
-    if (pthread_create(&thread, NULL, srvStartDetach, NULL) != 0) {
+    if (pthread_create(&thread, NULL, srvStartDetach, NULL) != 0)
+    {
         error_info("server start thread create error.");
         return GMERR_CLIENT_START_SERVER_FAILED;
     }
@@ -89,13 +89,14 @@ CliStatus KVCRecv(KVConnectT *conn, MsgBufResponseT *msgBuf)
 {
     DB_POINT(conn);
     char message[sizeof(MsgBufResponseT)];
-    int recvRet = read(conn->socketFd, &message, sizeof(MsgBufResponseT));
-    if (recvRet == -1)
+    int recvLen = read(conn->socketFd, &message, sizeof(MsgBufResponseT));
+    if (recvLen == -1)
     {
         error_info("client recv msgBuf error.");
         return GMERR_CLIENT_RECV_FAILED;
     }
+    // message[recvLen] = 0;
     memcpy(msgBuf, &message, sizeof(MsgBufResponseT));
-    
+
     return GMERR_OK;
 }

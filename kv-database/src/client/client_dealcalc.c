@@ -52,8 +52,7 @@ CliStatus KVCCalcTwoNumber(KVConnectT *conn, int x, int y, CalcOptionT opt, UsrR
     SetCalcUsrMsgBuf(msgBuf.requestMsg, x, y, opt);
 
     CliStatus ret = KVCSend(conn, &msgBuf);
-    if (ret != GMERR_OK)
-    {
+    if (ret != GMERR_OK) {
         return ret;
     }
     normal_info("send calc request succ");
@@ -61,15 +60,13 @@ CliStatus KVCCalcTwoNumber(KVConnectT *conn, int x, int y, CalcOptionT opt, UsrR
     // 读取服务器返回的消息
     MsgBufResponseT respBuf = {0};
     ret = KVCRecv(conn, &respBuf);
-    if (ret != GMERR_OK)
-    {
+    if (ret != GMERR_OK) {
         return ret;
     }
     normal_info("recv calc result succ");
     // 解析服务器返回的消息
     ret = CltParseCalcMsgBuf(&respBuf, result);
-    if (ret != GMERR_OK)
-    {
+    if (ret != GMERR_OK) {
         return ret;
     }
     normal_info("parse calc result succ");
