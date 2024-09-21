@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include "log.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -52,7 +52,8 @@
         "common.h": "c"
     },
     "editor.tokenColorCustomizations": {
-        "comments": "#00fc00"
+        "comments": "#00fc00",
+        "variables": "#e100ff"
     },
     "cmake.sourceDirectory": "/root/project/all2023/kv-database"
 }
