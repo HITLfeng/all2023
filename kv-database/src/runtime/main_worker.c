@@ -77,6 +77,13 @@ Status MainWorkerStart()
         return GMERR_SOCKET_FAILED;
     }
 
+    // 初始化内存池
+    if (KVMemoryPoolInit() != GMERR_OK)
+    {
+        error_info("MainWorkerStart, KVMemoryPoolInit failed");
+        return GMERR_STORAGE_MEMPOOL_INIT_FAILED;
+    }
+
     while (1)
     {
         clnt_addr_size = sizeof(clnt_addr);
@@ -95,8 +102,10 @@ Status MainWorkerStart()
         pthread_detach(t_id); // 分离线程，使其结束后自动回收资源
     }
 
+    // 释放内存池资源
+    KVMemoryPoolUninit();
     // 关闭socket
     close(serv_sock);
 
-    return 0;
+    return GMERR_OK;
 }

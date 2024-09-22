@@ -8,6 +8,7 @@
 #include <pthread.h>
 #include "out_type_defs.h"
 #include "../../common/include/common.h"
+#include "../../common/include/kv_memory.h"
 
 #ifdef __cplusplus
 extern "C"
